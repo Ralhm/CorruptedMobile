@@ -19,10 +19,7 @@ public class MouseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
-            GetHitTarget();
 
-        }
     }
 
     private void ChangeCursor(Texture2D cursorType)
@@ -31,36 +28,7 @@ public class MouseController : MonoBehaviour
         Cursor.SetCursor(cursorType, Vector2.zero, CursorMode.Auto);
     }
 
-    public void GetHitTarget()
-    {
-        Debug.Log("Shooting!");
 
-        Ray trace = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit Hit;
-
-        if (Physics.Raycast(trace, out Hit))
-        {
-            Debug.Log(Hit.collider.gameObject.name);
-            if (Hit.collider != null)
-            {
-   
-                NumbersEnemy enemy = Hit.collider.gameObject.GetComponent<NumbersEnemy>();
-                if (enemy != null)
-                {
-                    NumbersPlayer.instance.Attack(enemy);
-                    Debug.Log("Hit Enemy!");
-
-                }
-
-            }
-
-
-
-
-        }
-        
-
-    }
 
 
 }

@@ -669,6 +669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RunnerPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 897371417097652886, guid: ee0e67ea80e6696468e4a71ddd8d50b0, type: 3}
+      propertyPath: IsLead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6716498595585771510, guid: ee0e67ea80e6696468e4a71ddd8d50b0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -11,13 +11,18 @@ public class RunnerPlayer : MonoBehaviour
     public float MoveSpeed;
 
     public bool IsShooting;
-    
+
+
+
     public GameObject Bullet;
     public float FireRate;
     public int NumShots = 1;
     public int MaxShots = 3;
 
     bool CanFire = true;
+
+
+    public bool IsLead;
 
     // Start is called before the first frame update
     void Awake()
@@ -30,38 +35,50 @@ public class RunnerPlayer : MonoBehaviour
         else if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(transform.gameObject);
+            //DontDestroyOnLoad(transform.gameObject);
         }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        if (IsLead)
         {
-            IsShooting = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                IsShooting = true;
 
 
-            if (CanFire) {
-                StartCoroutine(ShootRoutine());
+                if (CanFire)
+                {
+                    StartCoroutine(ShootRoutine());
+                }
+
             }
-            
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                IsShooting = false;
+            }
+
+            FindLookRotation();
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            IsShooting = false;
-        }
-
-        FindLookRotation();
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float Dir = Input.GetAxis("Horizontal");
 
-        transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+        if (IsLead)
+        {
+            float Dir = Input.GetAxis("Horizontal");
+
+            transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+        }
+
+
         
 
     }
@@ -148,5 +165,12 @@ public class RunnerPlayer : MonoBehaviour
             NumShots = 1;
 
         }
+    }
+
+
+
+    void SetLead(bool input)
+    {
+        IsLead = input;
     }
 }
