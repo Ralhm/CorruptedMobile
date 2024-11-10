@@ -6,8 +6,10 @@ public class CameraController : MonoBehaviour
 {
 
     public float OverheadAngle;
+    public Vector3 OverheadPos;
+    public Vector3 StraightPos;
 
-
+    public bool isOverhead = true;
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +25,18 @@ public class CameraController : MonoBehaviour
 
     public void SwapAngle()
     {
-
-        if (transform.rotation.x == OverheadAngle)
+        
+        if (isOverhead)
         {
-            transform.rotation = new Quaternion(0, 0, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.localPosition = StraightPos;
+            isOverhead = false;
         }
         else
         {
-            transform.rotation = new Quaternion(OverheadAngle, 0, 0, 0);
+            transform.localRotation = Quaternion.Euler(OverheadAngle, 0, 0);
+            transform.localPosition = OverheadPos;
+            isOverhead = true;
         }
         
     }

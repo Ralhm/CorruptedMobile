@@ -669,6 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014c325142f20f645a53c4c23d7566d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Controller: {fileID: 1863455793}
   NumPlayer: {fileID: 1033978771}
   RunningPlayer: {fileID: 1399067750}
   LeadPosition: {fileID: 1925437803}
@@ -918,7 +919,7 @@ Transform:
   m_GameObject: {fileID: 1863455791}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30070576, y: -0, z: -0, w: 0.953717}
-  m_LocalPosition: {x: -0.7183309, y: 10.469999, z: -7.725}
+  m_LocalPosition: {x: 0, y: 11, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -937,6 +938,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OverheadAngle: 35
+  OverheadPos: {x: 0, y: 11, z: -8}
+  StraightPos: {x: 0, y: 0, z: -16}
+  isOverhead: 1
 --- !u!81 &1863455794
 AudioListener:
   m_ObjectHideFlags: 0

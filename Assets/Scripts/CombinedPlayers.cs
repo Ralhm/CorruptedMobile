@@ -7,7 +7,7 @@ public class CombinedPlayers : MonoBehaviour
 
     AutoMovement Mover;
 
-    CameraController Controller;
+    public CameraController Controller;
 
     Vector3 CheckpointLocation;
 
