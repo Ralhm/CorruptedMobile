@@ -7,17 +7,25 @@ public class Bullet : MonoBehaviour
 
 
     public float Speed;
+    public Vector3 MoveDir;
+    Rigidbody RB;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void Awake()
     {
-        
+        RB = GetComponent<Rigidbody>();
     }
+
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        //RB.AddForce(MoveDir * Speed);
     }
+
+    public void SetMoveDir(Vector3 dir)
+    {
+        MoveDir = dir;
+        RB.velocity = MoveDir * Speed;
+    }
+
 }

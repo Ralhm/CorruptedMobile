@@ -24,7 +24,8 @@ public class RunnerPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetMouseButtonDown(0))
+        {
             IsShooting = true;
 
 
@@ -34,7 +35,7 @@ public class RunnerPlayer : MonoBehaviour
             
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetMouseButtonUp(0))
         {
             IsShooting = false;
         }
@@ -55,7 +56,9 @@ public class RunnerPlayer : MonoBehaviour
 
     public void Shoot()
     {
-        Instantiate(Bullet, transform.position, transform.rotation);
+        Bullet NewBullet = Instantiate(Bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+        NewBullet.SetMoveDir(transform.forward);
+
     }
 
     IEnumerator ShootRoutine()
@@ -76,26 +79,18 @@ public class RunnerPlayer : MonoBehaviour
 
     public void FindLookRotation()
     {
-        Debug.Log("Shooting!");
+        //Debug.Log("Looking!");
 
         Ray trace = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit Hit;
-
-        if (Physics.Raycast(trace, out Hit))
-        {
-            Debug.Log(Hit.collider.gameObject.name);
-            if (Hit.collider != null)
-            {
 
 
-            }
+        Vector3 LookPos = Camera.main.transform.position + (trace.direction * (Camera.main.transform.position - transform.position).magnitude);
 
+        LookPos = new Vector3(LookPos.x, transform.position.y, LookPos.z);
 
+        transform.LookAt(LookPos);
 
-
-        }
-
-
+        //transform.rotation = Quaternion.Euler(transform.rotation.x, Dir.y, transform.rotation.z);
     }
 
     public void AdjustFireRate(float val)
