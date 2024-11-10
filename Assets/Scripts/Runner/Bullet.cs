@@ -7,12 +7,14 @@ public class Bullet : MonoBehaviour
 
 
     public float Speed;
+    public int Lifespan;
     public Vector3 MoveDir;
     Rigidbody RB;
 
     public void Awake()
     {
         RB = GetComponent<Rigidbody>();
+        Destroy(this.gameObject, Lifespan);
     }
 
 

@@ -21,13 +21,19 @@ public class CameraController : MonoBehaviour
         
     }
 
-    public void MoveToOverheadAngle()
+    public void SwapAngle()
     {
-        transform.rotation = new Quaternion(OverheadAngle, 0, 0, 0);
+
+        if (transform.rotation.x == OverheadAngle)
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+        else
+        {
+            transform.rotation = new Quaternion(OverheadAngle, 0, 0, 0);
+        }
+        
     }
 
-    public void MoveToStraightAngle()
-    {
-        transform.rotation = new Quaternion(0, 0, 0, 0);
-    }
+
 }

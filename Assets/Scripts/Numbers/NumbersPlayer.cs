@@ -11,7 +11,7 @@ public class NumbersPlayer : MonoBehaviour
     public static NumbersPlayer instance = null;
 
 
-
+    public bool LookAtCamera;
     public int CurrentNum;
     public int StartingNum;
 

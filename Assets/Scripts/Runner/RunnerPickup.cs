@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RunnerPickup : MonoBehaviour
 {
-    public float Speed;
+
 
 
     // Start is called before the first frame update
@@ -23,13 +23,16 @@ public class RunnerPickup : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
-
+            AdjustPlayer();
+            Destroy(this.gameObject);
 
         }
     }
 
     public virtual void AdjustPlayer()
     {
+
+
 
     }
 
