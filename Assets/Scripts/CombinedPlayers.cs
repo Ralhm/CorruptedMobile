@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombinedPlayers : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class CombinedPlayers : MonoBehaviour
 
     public Rigidbody RB;
 
+    public LayerMask Mask;
+    public float TraceDistance;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,6 +39,23 @@ public class CombinedPlayers : MonoBehaviour
     }
 
 
+    private void FixedUpdate()
+    {
+        //Nasty ass bullshit
+        if (Physics.Raycast(NumPlayer.transform.position, Vector3.right, TraceDistance, Mask))
+        {
+            Mover.IsMoving = false;
+        }
+        else if (Physics.Raycast(RunningPlayer.transform.position, transform.forward, TraceDistance, Mask))
+        {
+            Mover.IsMoving = false;
+            return;
+        }
+        else {
+            Mover.IsMoving = true;
+        }
+    }
+
     public void SwapLeader()
     {
         Mover.IsMovingForward = !Mover.IsMovingForward;
@@ -43,7 +63,7 @@ public class CombinedPlayers : MonoBehaviour
         RunningPlayer.transform.SetParent(transform);
         NumPlayer.transform.SetParent(transform);
 
-        if (RunningPlayer.IsLead)
+        if (RunningPlayer.IsLead) //Switch to NumPlayer as Lead
         {
 
 
@@ -57,22 +77,36 @@ public class CombinedPlayers : MonoBehaviour
 
             NumPlayer.IsLead = true;
             NumPlayer.transform.position = LeadPosition.position;
+            NumPlayer.RB.useGravity = true;
+
+            NumPlayer.transform.localRotation = Quaternion.Euler(-90, 0, 0);
 
             RunningPlayer.transform.SetParent(NumPlayer.transform);
+            RunningPlayer.RB.useGravity = false;
 
+            //Deactivate collision for non leads
+            RunningPlayer.GetComponent<CapsuleCollider>().enabled = false;
+            RunningPlayer.GetComponent<Rigidbody>().isKinematic = true;
+            NumPlayer.GetComponent<BoxCollider>().enabled = true;
 
 
 
         }
-        else
+        else //Switch to RunningPlayer as Lead
         {
             RunningPlayer.IsLead = true;
             RunningPlayer.transform.position = LeadPosition.position;
+            RunningPlayer.RB.useGravity = true;
 
             NumPlayer.IsLead = false;
             NumPlayer.transform.position = FollowPosition.position;
 
-            NumPlayer.transform.SetParent(RunningPlayer.transform);
+            NumPlayer.RB.useGravity = false;
+
+            RunningPlayer.GetComponent<CapsuleCollider>().enabled = true;
+            RunningPlayer.GetComponent<Rigidbody>().isKinematic = false;
+            NumPlayer.GetComponent<BoxCollider>().enabled = false;
+            NumPlayer.RB.velocity = Vector3.zero;
         }
 
 
@@ -84,6 +118,18 @@ public class CombinedPlayers : MonoBehaviour
     public void Respawn()
     {
         transform.position = CheckpointLocation;
+
+
+        if (RunningPlayer.IsLead) {
+
+            RunningPlayer.transform.position = LeadPosition.position;
+            NumPlayer.transform.position = FollowPosition.position;
+        }
+        else
+        {
+            RunningPlayer.transform.position = FollowPosition.position;
+            NumPlayer.transform.position = LeadPosition.position;
+        }
     }
 
     public void SetCheckpoint(Vector3 SpawnLocation)
@@ -91,8 +137,5 @@ public class CombinedPlayers : MonoBehaviour
         CheckpointLocation = SpawnLocation;
     }
 
-    public void Jump(float Force)
-    {
-        RB.AddForce(Force * transform.up);
-    }
+
 }

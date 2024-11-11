@@ -5,7 +5,7 @@ using UnityEngine;
 public class RunnerPickup : MonoBehaviour
 {
 
-
+    public bool isCorrupted = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,6 +23,14 @@ public class RunnerPickup : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
+            Debug.Log("Collided with player!");
+
+            if (isCorrupted) {
+                FindObjectOfType<LevelLoader>().LoadNextLevel();
+            }
+
+
+
             AdjustPlayer();
             Destroy(this.gameObject);
 

@@ -7,9 +7,9 @@ public class AutoMovement : MonoBehaviour
     public bool IsMovingForward = true;
     public float ForwardSpeed;
     public float SideSpeed;
-    
 
- 
+    public bool IsMoving;
+
 
 
     // Start is called before the first frame update
@@ -21,6 +21,12 @@ public class AutoMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if (!IsMoving)
+        {
+            return;
+        }
+
         if (IsMovingForward)
         {
             transform.position += new Vector3(0, 0, ForwardSpeed);

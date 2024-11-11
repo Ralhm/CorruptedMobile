@@ -7,7 +7,11 @@ public class NumbersEnemySpawner : MonoBehaviour
 
 
     public int SpawnedEnemies;
+    
     public int SpawnRate;
+
+    //after spawning how many enemies do corrupted enemies start spawning?
+    public int CorruptedEnemySpawnNum;
 
     public NumbersEnemy EnemyPrefab;
     public NumbersEnemy CorruptedEnemyPrefab;
@@ -27,7 +31,15 @@ public class NumbersEnemySpawner : MonoBehaviour
     public void SpawnEnemy()
     {
         SpawnedEnemies++;
-        Instantiate(EnemyPrefab, transform.position, transform.rotation);
+
+        if (SpawnedEnemies >= CorruptedEnemySpawnNum)
+        {
+            Instantiate(CorruptedEnemyPrefab, transform.position, transform.rotation);
+        }
+        else
+        {
+            Instantiate(EnemyPrefab, transform.position, transform.rotation);
+        }
     }
 
     IEnumerator SpawnRoutine()

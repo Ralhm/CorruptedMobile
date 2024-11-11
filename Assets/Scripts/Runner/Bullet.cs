@@ -30,15 +30,19 @@ public class Bullet : MonoBehaviour
         RB.velocity = MoveDir * Speed;
     }
 
-    public void OnTriggerEnter(Collider other)
+
+    public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.layer == 6) {
+        if (other.gameObject.layer == 6)
+        {
 
             other.gameObject.GetComponent<RunnerEnemy>().LoseHealth();
+            Destroy(this.gameObject);
         }
         else if (other.gameObject.layer == 10)
         {
             other.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 

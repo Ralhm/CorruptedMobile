@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/NumbersScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/RunnerScene.unity
+    guid: 2f6b681d69a0a984ab533f312a0e1500
+  - enabled: 1
+    path: Assets/Scenes/CorruptedScene.unity
+    guid: 78bc53e528112ed44863b2ee989087a6
+  - enabled: 1
+    path: Assets/Scenes/FinalScene.unity
+    guid: d2b3e52873537f8449ab9286995b994d
   m_configObjects: {}

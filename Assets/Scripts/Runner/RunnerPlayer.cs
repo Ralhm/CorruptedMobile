@@ -12,7 +12,9 @@ public class RunnerPlayer : MonoBehaviour
 
     public bool IsShooting;
 
+    public Rigidbody RB;
 
+    public GameObject NumPlayer;
 
     public GameObject Bullet;
     public float FireRate;
@@ -76,6 +78,13 @@ public class RunnerPlayer : MonoBehaviour
             float Dir = Input.GetAxis("Horizontal");
 
             transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+
+            if (NumPlayer)
+            {
+                NumPlayer.transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+            }
+
+
         }
 
 

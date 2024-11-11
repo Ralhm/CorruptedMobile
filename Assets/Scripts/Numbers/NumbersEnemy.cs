@@ -11,18 +11,41 @@ public class NumbersEnemy : MonoBehaviour
     public int Num;
     public bool IsCorrupted;
 
+
     public int Lifespan;
+    public float CorruptionRate = 0.1f;
+    public bool DieAfterTimeLimit = true;
 
     public TextMeshProUGUI NumText;
 
     // Start is called before the first frame update
     void Start()
     {
-        Num = Random.Range(1, NumMax);
+        if (!IsCorrupted)
+        {
+            Num = Random.Range(1, NumMax);
+            NumText.text = Num.ToString();
+        }
+        else
+        {
+            NumText.text = Random.Range(100, 9999).ToString();
+            StartCoroutine(CorruptionText());
+        }
 
-        NumText.text = Num.ToString();
+        if (DieAfterTimeLimit)
+        {
+            //Destroy(this.gameObject, Lifespan);
+        }
+        
+    }
 
-        Destroy(this.gameObject, Lifespan);
+    IEnumerator CorruptionText()
+    {
+        while (true) {
+
+            NumText.text = Random.Range(100, 2000).ToString();
+            yield return new WaitForSeconds(CorruptionRate);
+        }
     }
 
     // Update is called once per frame
@@ -33,8 +56,14 @@ public class NumbersEnemy : MonoBehaviour
 
     public void Die()
     {
-        gameObject.SetActive(false);
+        if (IsCorrupted)
+        {
+            FindObjectOfType<LevelLoader>().LoadNextLevel();
+            return;
+        }
 
+
+        gameObject.SetActive(false);
         NumbersPlayer.instance.IncreaseNum(Num);
     }
 

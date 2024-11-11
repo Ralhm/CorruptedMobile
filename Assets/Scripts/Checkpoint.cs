@@ -18,9 +18,13 @@ public class Checkpoint : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7)
+
+        Debug.Log(other.gameObject.name);
+
+        if (other.gameObject.layer == 12)
         {
-            other.gameObject.GetComponent<CombinedPlayers>().SetCheckpoint(transform.position);
+            Debug.Log("Setting Checkpoint");
+            other.gameObject.GetComponent<CombinedPlayers>().SetCheckpoint(other.gameObject.transform.position);
         }
     }
 }

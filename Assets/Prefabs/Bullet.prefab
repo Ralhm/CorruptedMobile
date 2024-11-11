@@ -147,5 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 30
-  Lifespan: 2
+  Lifespan: 1
   MoveDir: {x: 0, y: 0, z: 0}

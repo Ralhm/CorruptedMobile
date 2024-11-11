@@ -10,6 +10,9 @@ public class NumbersPlayer : MonoBehaviour
     public TextMeshProUGUI NumText;
     public static NumbersPlayer instance = null;
 
+    public Rigidbody RB;
+
+
 
     public bool IsLookingAtCamera;
     public int CurrentNum;
@@ -17,6 +20,9 @@ public class NumbersPlayer : MonoBehaviour
     public float JumpForce;
 
     public bool IsLead;
+
+    public LayerMask Mask;
+    public int TraceDistance;
 
     void Awake()
     {
@@ -50,7 +56,7 @@ public class NumbersPlayer : MonoBehaviour
             }
 
         }
-
+        LookAtCamera();
     }
 
     public void Attack(NumbersEnemy Enemy) 
@@ -96,7 +102,7 @@ public class NumbersPlayer : MonoBehaviour
 
     public void GetHitTarget()
     {
-        Debug.Log("Shooting!");
+        //Debug.Log("Shooting!");
 
         Ray trace = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit Hit;
@@ -126,13 +132,22 @@ public class NumbersPlayer : MonoBehaviour
 
     public void LookAtCamera()
     {
-        //Camera.main.transform.position
+        //Vector3 dir = (new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z) - transform.position).normalized;
+
+        
     }
 
     public void Jump()
     {
+        Debug.DrawLine(transform.position, transform.position + (Vector3.down * TraceDistance));
+        if (Physics.Raycast(transform.position, Vector3.down, TraceDistance, Mask) )
+        {
+            RB.AddForce(JumpForce * Vector3.up);
+        }
 
-        GetComponentInParent<CombinedPlayers>().Jump(JumpForce);
+
+
+        
     }
 
     void SetLead(bool input)
