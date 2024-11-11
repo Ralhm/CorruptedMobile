@@ -1,7 +1,7 @@
 TODO:
 Apply animations to enemies and characters
 Character model for runner
-Music
+
 
 test and implement runner enemies
 
