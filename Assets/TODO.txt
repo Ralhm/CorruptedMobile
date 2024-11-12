@@ -1,6 +1,6 @@
 TODO:
-Apply animations to enemies and characters
-Character model for runner
+Corrupted enemy animations
+
 
 
 test and implement runner enemies

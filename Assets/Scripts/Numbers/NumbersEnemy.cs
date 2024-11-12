@@ -7,7 +7,7 @@ public class NumbersEnemy : MonoBehaviour
 {
     public float Speed;
     public int NumMax;
-    public int NumMin;
+    public int NumMin = 1;
     public int Num;
     public bool IsCorrupted;
 
@@ -23,7 +23,7 @@ public class NumbersEnemy : MonoBehaviour
     {
         if (!IsCorrupted)
         {
-            Num = Random.Range(1, NumMax);
+            Num = Random.Range(NumMin, NumMax);
             NumText.text = Num.ToString();
         }
         else

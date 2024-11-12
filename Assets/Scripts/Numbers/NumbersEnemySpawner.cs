@@ -13,7 +13,10 @@ public class NumbersEnemySpawner : MonoBehaviour
     //after spawning how many enemies do corrupted enemies start spawning?
     public int CorruptedEnemySpawnNum;
 
-    public NumbersEnemy EnemyPrefab;
+
+    public List<NumbersEnemy> EnemyPrefabs;
+
+
     public NumbersEnemy CorruptedEnemyPrefab;
 
     // Start is called before the first frame update
@@ -38,7 +41,10 @@ public class NumbersEnemySpawner : MonoBehaviour
         }
         else
         {
-            Instantiate(EnemyPrefab, transform.position, transform.rotation);
+
+            Debug.Log(EnemyPrefabs.Count);
+
+            Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Count)], transform.position, transform.rotation);
         }
     }
 

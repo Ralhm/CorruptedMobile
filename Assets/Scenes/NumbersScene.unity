@@ -794,7 +794,11 @@ MonoBehaviour:
   SpawnedEnemies: 0
   SpawnRate: 1
   CorruptedEnemySpawnNum: 15
-  EnemyPrefab: {fileID: 854578900497051939, guid: c2e97430e98453c47b61d21e3b861835, type: 3}
+  EnemyPrefabs:
+  - {fileID: 854578900497051939, guid: c2e97430e98453c47b61d21e3b861835, type: 3}
+  - {fileID: 854578900497051939, guid: 0c034d94641572e4b861f593e22b0e27, type: 3}
+  - {fileID: 854578900497051939, guid: d66c2a7f09ce03f4a97aba757181d46e, type: 3}
+  - {fileID: 854578900497051939, guid: dbe05661f3847bd418e81a50813f9a3b, type: 3}
   CorruptedEnemyPrefab: {fileID: 854578900497051939, guid: 4bc86cde0f499ab4e8c9beb8add36683, type: 3}
 --- !u!1001 &902275062599490907
 PrefabInstance:
