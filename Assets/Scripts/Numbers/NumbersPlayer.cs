@@ -61,8 +61,9 @@ public class NumbersPlayer : MonoBehaviour
 
     public void Attack(NumbersEnemy Enemy) 
     {
-        if (Enemy.IsCorrupted) { 
-        
+        if (Enemy.IsCorrupted) {
+            Enemy.Die();
+            return;
         }
 
 
@@ -139,7 +140,7 @@ public class NumbersPlayer : MonoBehaviour
 
     public void Jump()
     {
-        Debug.DrawLine(transform.position, transform.position + (Vector3.down * TraceDistance));
+        //Debug.DrawLine(transform.position, transform.position + (Vector3.down * TraceDistance));
         if (Physics.Raycast(transform.position, Vector3.down, TraceDistance, Mask) )
         {
             RB.AddForce(JumpForce * Vector3.up);

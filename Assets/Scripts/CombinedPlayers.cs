@@ -17,16 +17,20 @@ public class CombinedPlayers : MonoBehaviour
 
     public Transform LeadPosition;
     public Transform FollowPosition;
+    public Transform FollowNumPosition;
 
     public Rigidbody RB;
 
     public LayerMask Mask;
     public float TraceDistance;
 
+    public float StoredElevation;
+
     // Start is called before the first frame update
     void Awake()
     {
         Mover = GetComponent<AutoMovement>();
+        StoredElevation = NumPlayer.transform.position.y;
     }
 
     // Update is called once per frame
@@ -42,18 +46,35 @@ public class CombinedPlayers : MonoBehaviour
     private void FixedUpdate()
     {
         //Nasty ass bullshit
-        if (Physics.Raycast(NumPlayer.transform.position, Vector3.right, TraceDistance, Mask))
+
+        //Physics.SphereCast(NumPlayer.transform.position, Vector3.right, TraceDistance, Mask)
+
+        if (RunningPlayer.IsLead) {
+
+            if (Physics.Raycast(RunningPlayer.transform.position, transform.forward, TraceDistance, Mask))
+            {
+                Mover.IsMoving = false;
+                return;
+            }
+            else
+            {
+                Mover.IsMoving = true;
+            }
+        }
+        else if (NumPlayer.IsLead)
         {
-            Mover.IsMoving = false;
+            if (Physics.Raycast(NumPlayer.transform.position, Vector3.right, TraceDistance, Mask))
+            {
+                Mover.IsMoving = false;
+            }
+            else
+            {
+                Mover.IsMoving = true;
+            }
         }
-        else if (Physics.Raycast(RunningPlayer.transform.position, transform.forward, TraceDistance, Mask))
-        {
-            Mover.IsMoving = false;
-            return;
-        }
-        else {
-            Mover.IsMoving = true;
-        }
+
+
+
     }
 
     public void SwapLeader()
@@ -62,7 +83,7 @@ public class CombinedPlayers : MonoBehaviour
 
         RunningPlayer.transform.SetParent(transform);
         NumPlayer.transform.SetParent(transform);
-
+        float diff = 0;
         if (RunningPlayer.IsLead) //Switch to NumPlayer as Lead
         {
 
@@ -94,12 +115,15 @@ public class CombinedPlayers : MonoBehaviour
         }
         else //Switch to RunningPlayer as Lead
         {
+
+   
+
             RunningPlayer.IsLead = true;
             RunningPlayer.transform.position = LeadPosition.position;
             RunningPlayer.RB.useGravity = true;
 
             NumPlayer.IsLead = false;
-            NumPlayer.transform.position = FollowPosition.position;
+            NumPlayer.transform.position = FollowNumPosition.position;
 
             NumPlayer.RB.useGravity = false;
 
@@ -107,11 +131,24 @@ public class CombinedPlayers : MonoBehaviour
             RunningPlayer.GetComponent<Rigidbody>().isKinematic = false;
             NumPlayer.GetComponent<BoxCollider>().enabled = false;
             NumPlayer.RB.velocity = Vector3.zero;
+
+
+
+
+
+
         }
 
 
 
         Controller.SwapAngle();
+        /*
+        if (RunningPlayer.IsLead)
+        {
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y + diff, Camera.main.transform.position.z);
+        }
+        */
+           
     }
 
 
@@ -123,12 +160,12 @@ public class CombinedPlayers : MonoBehaviour
         if (RunningPlayer.IsLead) {
 
             RunningPlayer.transform.position = LeadPosition.position;
-            NumPlayer.transform.position = FollowPosition.position;
+            NumPlayer.transform.position = FollowNumPosition.position;
         }
         else
         {
             RunningPlayer.transform.position = FollowPosition.position;
-            NumPlayer.transform.position = LeadPosition.position;
+            NumPlayer.transform.position = LeadPosition.position + new Vector3(0, 5.0f, 0);
         }
     }
 
@@ -136,6 +173,7 @@ public class CombinedPlayers : MonoBehaviour
     {
         CheckpointLocation = SpawnLocation;
     }
+
 
 
 }

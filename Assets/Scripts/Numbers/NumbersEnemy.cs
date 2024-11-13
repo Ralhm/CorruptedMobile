@@ -11,6 +11,14 @@ public class NumbersEnemy : MonoBehaviour
     public int Num;
     public bool IsCorrupted;
 
+    public bool ActivateNextLevel;
+
+    public bool PlaySoundOnAwake;
+    public bool PlaySoundOnDeath;
+    public List<AudioClip> Clips;
+
+    public bool IsStationary = false;
+
 
     public int Lifespan;
     public float CorruptionRate = 0.1f;
@@ -28,15 +36,18 @@ public class NumbersEnemy : MonoBehaviour
         }
         else
         {
-            NumText.text = Random.Range(100, 9999).ToString();
+            Num = Random.Range(NumMin, NumMax);
+            NumText.text = Num.ToString();
             StartCoroutine(CorruptionText());
         }
 
         if (DieAfterTimeLimit)
         {
-            //Destroy(this.gameObject, Lifespan);
+            Destroy(this.gameObject, Lifespan);
         }
-        
+        if (PlaySoundOnAwake) {
+            PlaySound();
+        }
     }
 
     IEnumerator CorruptionText()
@@ -51,18 +62,25 @@ public class NumbersEnemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position += new Vector3(-Speed, 0, 0);
+        if (!IsStationary) {
+            transform.position += new Vector3(-Speed, 0, 0);
+        }
+        
     }
 
     public void Die()
     {
-        if (IsCorrupted)
+        if (ActivateNextLevel)
         {
             FindObjectOfType<LevelLoader>().LoadNextLevel();
             return;
         }
 
-
+        if (PlaySoundOnDeath)
+        {
+            PlaySound();
+        }
+        Debug.Log("Dying!!!!");
         gameObject.SetActive(false);
         NumbersPlayer.instance.IncreaseNum(Num);
     }
@@ -72,5 +90,16 @@ public class NumbersEnemy : MonoBehaviour
         NumbersPlayer.instance.DecreaseNum(Num);
     }
 
+    public void PlaySound()
+    {
+        if (Clips.Count > 0) {
+            int rand = Random.Range(0, Clips.Count);
+
+
+            AudioManager.Instance.PlaySFX(Clips[rand]);
+        }
+
+
+    }
 
 }

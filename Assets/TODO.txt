@@ -1,23 +1,21 @@
 TODO:
 Corrupted enemy animations
-
-
-
-test and implement runner enemies
-
-Corrupted screen anim (take minssigno and shuffle him around for a few frames)
-(To make the corruption version fade in and out, just take the corruption anim and copy/paste its frames into the fade in/out anims)
-
-
-Design Runner Level
 Design Corrupted Level
 
 
+
+
 CREDITS TXT FILE
+CREDITS TXT FILE
+CREDITS TXT FILE
+CREDITS TXT FILE
+CREDITS TXT FILE
+CREDITS TXT FILE
+
+
 
 Optional Juice:
 Sounds
-Textures for blocks
 Bullet Model
 Lerp when switching camera angles
 A RunnerPickup in the corrupted version that just collides with you and flies away instead of getting picked up?

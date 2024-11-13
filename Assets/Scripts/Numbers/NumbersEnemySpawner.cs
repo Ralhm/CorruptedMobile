@@ -8,7 +8,7 @@ public class NumbersEnemySpawner : MonoBehaviour
 
     public int SpawnedEnemies;
     
-    public int SpawnRate;
+    public float SpawnRate;
 
     //after spawning how many enemies do corrupted enemies start spawning?
     public int CorruptedEnemySpawnNum;

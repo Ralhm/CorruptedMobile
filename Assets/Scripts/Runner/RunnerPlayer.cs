@@ -14,16 +14,17 @@ public class RunnerPlayer : MonoBehaviour
 
     public Rigidbody RB;
 
-    public GameObject NumPlayer;
+    public NumbersPlayer NumPlayer;
 
     public GameObject Bullet;
     public float FireRate;
+    
     public int NumShots = 1;
     public int MaxShots = 3;
 
     bool CanFire = true;
 
-
+    public float Gravity;
     public bool IsLead;
 
     // Start is called before the first frame update
@@ -77,11 +78,20 @@ public class RunnerPlayer : MonoBehaviour
         {
             float Dir = Input.GetAxis("Horizontal");
 
-            transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+            //transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+            RB.velocity = new Vector3(Dir * MoveSpeed, -Gravity, 0);
+
+
+
+
+
+            
 
             if (NumPlayer)
             {
-                NumPlayer.transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+                //NumPlayer.transform.position += new Vector3(Dir * MoveSpeed, 0, 0);
+                NumPlayer.RB.velocity = new Vector3(Dir * MoveSpeed, 0, 0);
+                
             }
 
 
